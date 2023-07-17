@@ -26,7 +26,7 @@ class Contact:
     
 
 @pytest.fixture
-def home(py: Pylenium):
+def contact(py: Pylenium):
     return Contact(py).goto()
 
 
@@ -34,19 +34,19 @@ def test_nav_items(contact: Contact, py: Pylenium):
     nav_items = contact.get_nav_items()
 
     assert nav_items[0].text() == 'Home'
-    home.click_nav_item(0)
+    contact.click_nav_item(0)
     assert py.should().contain_url('https://www.bassettmason.com/')
 
-    home.goto()  # navigate back to the homepage
-    nav_items = home.get_nav_items()  # re-fetch nav items
+    contact.goto()  
+    nav_items = contact.get_nav_items()  # re-fetch nav items
 
     assert nav_items[1].text() == 'Portfolio'
-    home.click_nav_item(1)
+    contact.click_nav_item(1)
     assert py.should().contain_url('https://www.bassettmason.com/portfolio')
 
-    home.goto()  # navigate back to the homepage
-    nav_items = home.get_nav_items()  # re-fetch nav items
+    contact.goto()  
+    nav_items = contact.get_nav_items()  # re-fetch nav items
 
     assert nav_items[2].text() == 'Contact'
-    home.click_nav_item(2)
+    contact.click_nav_item(2)
     assert py.should().contain_url('https://www.bassettmason.com/contact')
